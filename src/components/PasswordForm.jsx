@@ -1,45 +1,34 @@
 import { useEffect } from "react";
 import { useCallback, useRef, useState } from "react";
+import useGeneratePassword from "../hooks/useGeneratePassword";
 
 export default function PasswordForm() {
 
     const [length, setLength] = useState(10);
     const [numbersAllowed, setNumbersAllowed] = useState(true);
     const [charactersAllowed, setCharactersAllowed] = useState(true);
-    const [password, setPassword] = useState("");
     const [isClicked, setIsClicked] = useState(false);
 
     const passwordRef = useRef(null);
     //useRef to store the password input field
-
-    //useCallback used to stop password rerendering on every input change
-    const generatePassword = useCallback(() => {
-        let newPassword = "";
-        let stringData = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        if (numbersAllowed) {
-            stringData += "0123456789";
-        }
-        if (charactersAllowed) {
-            stringData += "!@#$%^&*()_+[]{}|;:,.<>?";
-        }
-        for (let i = 0; i < length; i++) {
-            newPassword += stringData.charAt(Math.floor(Math.random() * stringData.length));
-        }
-        // save password to state
-        setPassword(newPassword);
-        //change buttonstatus to clicked for .3 secs
-        setIsClicked(true);
-        setTimeout(() => setIsClicked(false), 400);
-        // dependancies for useCallback to update the password
-    }, [length, numbersAllowed, charactersAllowed]);
+    const {password, generatePassword} = useGeneratePassword();
+    //usePasswordGenerator is a custom hook that generates a password
 
     const copyPassword = useCallback(() => {
         passwordRef.current?.select();
         window.navigator.clipboard.writeText(password);
+            //change buttonstatus to clicked for .3 secs
+        setIsClicked(true);
+        setTimeout(() => setIsClicked(false), 400);
     }, [password]);
     // useCallback to stop rerendering on every input change
     
-    useEffect(() => {generatePassword()}, [length, numbersAllowed, charactersAllowed, generatePassword]);
+
+    //anytime useGeneratePassword changes, it will rerender the password
+    //useEffect to generate password when length, numbersAllowed, or charactersAllowed changes
+    useEffect(() => {
+        generatePassword(length, numbersAllowed, charactersAllowed);
+    }, [length, numbersAllowed, charactersAllowed, generatePassword]);
 
     return (
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden mt-6 md:max-w-2xl">
@@ -59,7 +48,8 @@ export default function PasswordForm() {
                     readOnly
                     />
                     <button 
-                    className="w-auto font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 hover:bg-blue-700 text-white"
+                    className={`font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                    isClicked ? "transition ease-in-out duration-100 text-white bg-blue-950" : "transition ease-in-out duration-100 bg-blue-500 hover:bg-blue-700 text-white"}`}
                     type="button" onClick={copyPassword}>
                         Copy
                     </button>
