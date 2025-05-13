@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export default function PasswordForm() {
 
@@ -6,6 +6,26 @@ export default function PasswordForm() {
     const [numbersAllowed, setNumbersAllowed] = useState(true);
     const [charactersAllowed, setCharactersAllowed] = useState(true);
     const [password, setPassword] = useState("");
+
+    const generatePassword = useCallback(() => {
+        let newPassword = "";
+        let stringData = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        if (numbersAllowed) {
+            stringData += "0123456789";
+        }
+        if (charactersAllowed) {
+            stringData += "!@#$%^&*()_+[]{}|;:,.<>?";
+        }
+        for (let i = 0; i < length; i++) {
+            newPassword += stringData.charAt(Math.floor(Math.random() * stringData.length));
+        }
+        // save password to state
+        setPassword(newPassword);
+        
+
+        // dependancies for useCallback to update the password
+    }, [length, numbersAllowed, charactersAllowed]);
+    
 
     return (
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden mt-6 md:max-w-2xl">
@@ -59,7 +79,7 @@ export default function PasswordForm() {
                 <span className="ml-2">Include Special Characters</span>
                 </label>
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={generatePassword}>
                 Generate Password
             </button>
             </div>
