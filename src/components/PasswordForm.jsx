@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 export default function PasswordForm() {
 
@@ -7,6 +7,9 @@ export default function PasswordForm() {
     const [charactersAllowed, setCharactersAllowed] = useState(true);
     const [password, setPassword] = useState("");
     const [isClicked, setIsClicked] = useState(false);
+
+    const passwordRef = useRef(null);
+    //useRef to store the password input field
 
     //useCallback used to stop password rerendering on every input change
     const generatePassword = useCallback(() => {
@@ -30,7 +33,8 @@ export default function PasswordForm() {
     }, [length, numbersAllowed, charactersAllowed]);
 
     const copyPassword = useCallback(() => {
-        navigator.clipboard.writeText(password);
+        passwordRef.current?.select();
+        window.navigator.clipboard.writeText(password);
     }, [password]);
     // useCallback to stop rerendering on every input change
     
@@ -47,6 +51,7 @@ export default function PasswordForm() {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="password"
                     type="text"
+                    ref={passwordRef}
                     placeholder="Your password will appear here"
                     value={password}
                     readOnly
