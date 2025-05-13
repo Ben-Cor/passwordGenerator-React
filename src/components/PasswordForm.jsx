@@ -42,19 +42,22 @@ export default function PasswordForm() {
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                 Generated Password
                 </label>
-                <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
-                type="text"
-                placeholder="Your password will appear here"
-                value={password}
-                readOnly
-                />
-                <button 
-                className="mt-4 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 hover:bg-blue-700 text-white"
-                type="button" onClick={copyPassword}>
-                    Copy Password
-                </button>
+                <div className="flex justify-center items-center">
+                    <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="password"
+                    type="text"
+                    placeholder="Your password will appear here"
+                    value={password}
+                    readOnly
+                    />
+                    <button 
+                    className="w-auto font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 hover:bg-blue-700 text-white"
+                    type="button" onClick={copyPassword}>
+                        Copy
+                    </button>
+                </div>
+                
             </div>
             <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="length">
