@@ -6,7 +6,9 @@ export default function PasswordForm() {
     const [numbersAllowed, setNumbersAllowed] = useState(true);
     const [charactersAllowed, setCharactersAllowed] = useState(true);
     const [password, setPassword] = useState("");
+    const [isClicked, setIsClicked] = useState(false);
 
+    //useCallback used to stop password rerendering on every input change
     const generatePassword = useCallback(() => {
         let newPassword = "";
         let stringData = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -21,10 +23,16 @@ export default function PasswordForm() {
         }
         // save password to state
         setPassword(newPassword);
-        
-
+        //change buttonstatus to clicked for .3 secs
+        setIsClicked(true);
+        setTimeout(() => setIsClicked(false), 400);
         // dependancies for useCallback to update the password
     }, [length, numbersAllowed, charactersAllowed]);
+
+    const copyPassword = useCallback(() => {
+        navigator.clipboard.writeText(password);
+    }, [password]);
+    // useCallback to stop rerendering on every input change
     
 
     return (
@@ -42,6 +50,11 @@ export default function PasswordForm() {
                 value={password}
                 readOnly
                 />
+                <button 
+                className="mt-4 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 hover:bg-blue-700 text-white"
+                type="button" onClick={copyPassword}>
+                    Copy Password
+                </button>
             </div>
             <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="length">
@@ -52,7 +65,7 @@ export default function PasswordForm() {
                 id="length"
                 type="range"
                 min="6"
-                max="20"
+                max="30"
                 value={length}
                 onChange={(e) => setLength(e.target.value)}
                 />
@@ -79,7 +92,9 @@ export default function PasswordForm() {
                 <span className="ml-2">Include Special Characters</span>
                 </label>
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={generatePassword}>
+            <button className={`mt-4 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+            isClicked ? "transition ease-in-out duration-100 text-white bg-blue-950" : "transition ease-in-out duration-100 bg-blue-500 hover:bg-blue-700 text-white"}`}
+            type="button" onClick={generatePassword}>
                 Generate Password
             </button>
             </div>
