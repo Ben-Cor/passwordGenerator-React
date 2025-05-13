@@ -35,9 +35,9 @@ export default function PasswordForm() {
         let strengthScore = 0;
 
         if (length >= 15) {
-            strengthScore += 2;
-        } else if (length >= 10) {
             strengthScore += 1;
+        } else if (length >= 10) {
+            strengthScore += 0;
         }
         if (numbersAllowed) {
             strengthScore += 1;
