@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useCallback, useRef, useState } from "react";
 
 export default function PasswordForm() {
@@ -38,6 +39,7 @@ export default function PasswordForm() {
     }, [password]);
     // useCallback to stop rerendering on every input change
     
+    useEffect(() => {generatePassword()}, [length, numbersAllowed, charactersAllowed, generatePassword]);
 
     return (
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden mt-6 md:max-w-2xl">
@@ -100,11 +102,11 @@ export default function PasswordForm() {
                 <span className="ml-2">Include Special Characters</span>
                 </label>
             </div>
-            <button className={`mt-4 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+            {/* <button className={`mt-4 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
             isClicked ? "transition ease-in-out duration-100 text-white bg-blue-950" : "transition ease-in-out duration-100 bg-blue-500 hover:bg-blue-700 text-white"}`}
             type="button" onClick={generatePassword}>
                 Generate Password
-            </button>
+            </button> */}
             </div>
         </div>
     );
