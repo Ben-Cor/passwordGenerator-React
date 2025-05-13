@@ -23,12 +23,42 @@ export default function PasswordForm() {
     }, [password]);
     // useCallback to stop rerendering on every input change
     
-
     //anytime useGeneratePassword changes, it will rerender the password
     //useEffect to generate password when length, numbersAllowed, or charactersAllowed changes
     useEffect(() => {
         generatePassword(length, numbersAllowed, charactersAllowed);
     }, [length, numbersAllowed, charactersAllowed, generatePassword]);
+
+    const [strength, setStrength] = useState("");
+
+    const passwordStrength = useCallback(() => {
+        let strengthScore = 0;
+
+        if (length >= 15) {
+            strengthScore += 2;
+        } else if (length >= 10) {
+            strengthScore += 1;
+        }
+        if (numbersAllowed) {
+            strengthScore += 1;
+        }
+        if (charactersAllowed) {
+            strengthScore += 1;
+        }
+
+        if (strengthScore >= 3) {
+            return "Strong";
+        } else if (strengthScore >= 2) {
+            return "Medium";
+        } else {
+            return "Weak";
+        }
+    }, [length, numbersAllowed, charactersAllowed]);
+
+    useEffect(() => {
+        const calculatedStrength = passwordStrength();
+        setStrength(calculatedStrength); // Update the state with the calculated strength
+    }, [password, length, numbersAllowed, charactersAllowed]);
 
     return (
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden mt-6 md:max-w-2xl">
@@ -97,6 +127,7 @@ export default function PasswordForm() {
             type="button" onClick={generatePassword}>
                 Generate Password
             </button> */}
+            <p className={strength=="Weak" ? `text-red-500` : `text-black`}>Password Strength: {strength}</p>
             </div>
         </div>
     );
