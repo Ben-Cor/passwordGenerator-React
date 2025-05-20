@@ -4,7 +4,7 @@ import PasswordForm from "./components/PasswordForm"
 function App() {
 
   return (
-    <div>
+    <div className="bg-gray-800 h-screen">
       <Header />
       <PasswordForm />
     </div>
