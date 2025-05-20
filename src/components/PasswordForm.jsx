@@ -64,7 +64,7 @@ export default function PasswordForm() {
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg shadow-gray-400 overflow-hidden mt-6 md:max-w-2xl">
             <div className="p-8">
             <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                <label className=" font-tektur block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                 Generated Password
                 </label>
                 <div className="flex justify-center items-center">
@@ -86,7 +86,7 @@ export default function PasswordForm() {
                 </div>
                 
             </div>
-            <div className="mb-4">
+            <div className="mb-4 font-tektur">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="length">
                 Password Length: {length}
                 </label>
@@ -100,7 +100,7 @@ export default function PasswordForm() {
                 onChange={(e) => setLength(e.target.value)}
                 />
             </div>
-            <div className="mb-4">
+            <div className="mb-4 font-tektur">
                 <label className="inline-flex items-center">
                 <input
                     type="checkbox"
@@ -111,7 +111,7 @@ export default function PasswordForm() {
                 <span className="ml-2">Include Numbers</span>
                 </label>
             </div>
-            <div className="mb-4">
+            <div className="mb-4 font-tektur">
                 <label className="inline-flex items-center">
                 <input
                     type="checkbox"
@@ -127,7 +127,7 @@ export default function PasswordForm() {
             type="button" onClick={generatePassword}>
                 Generate Password
             </button> */}
-            <p className={strength=="Weak" ? `text-red-500` : `text-black`}>Password Strength: {strength}</p>
+            <p className={strength=="Weak" ? `text-red-500 font-tektur` : `text-black font-tektur`}>Password Strength: {strength}</p>
             </div>
         </div>
     );

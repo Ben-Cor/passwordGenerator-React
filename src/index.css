@@ -1,1 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap');
 @import "tailwindcss";
+
+@theme {
+    --font-tektur: 'Tektur', sans-serif;
+}
