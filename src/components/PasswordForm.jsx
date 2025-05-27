@@ -61,7 +61,7 @@ export default function PasswordForm() {
     }, [password, length, numbersAllowed, charactersAllowed]);
 
     return (
-        <div className="max-w-md md:mx-auto mx-4 bg-white rounded-xl shadow-lg shadow-gray-400 overflow-hidden mt-10 md:max-w-2xl">
+        <div className="max-w-md mx-auto mx-4 bg-white rounded-xl shadow-lg shadow-gray-400 overflow-hidden mt-10 md:max-w-2xl">
             <div className="md:p-8 p-4">
             <div className="mb-4">
                 <label className=" font-tektur block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
