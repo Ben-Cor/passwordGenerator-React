@@ -122,12 +122,16 @@ export default function PasswordForm() {
                 <span className="ml-2">Include Special Characters</span>
                 </label>
             </div>
-            {/* <button className={`mt-4 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-            isClicked ? "transition ease-in-out duration-100 text-white bg-blue-950" : "transition ease-in-out duration-100 bg-blue-500 hover:bg-blue-700 text-white"}`}
-            type="button" onClick={generatePassword}>
-                Generate Password
-            </button> */}
-            <p className={strength=="Weak" ? `text-red-500 font-tektur` : `text-black font-tektur`}>Password Strength: {strength}</p>
+                <p 
+                className={
+                    strength === "Weak"
+                    ? "text-red-500 font-tektur"
+                    : strength === "Strong"
+                    ? "text-green-600 font-tektur"
+                    : "text-black font-tektur"
+                    }>
+                    Password Strength: {strength}
+                </p>
             </div>
         </div>
     );
